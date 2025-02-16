@@ -1011,16 +1011,16 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    for (auto n = std::uintmax_t{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
                         if (n == p_n) {
                             *p_result = *p_first;
                             ++p_result;
@@ -1045,11 +1045,11 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1087,17 +1087,17 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    for (auto n = std::uintmax_t{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
                         if (n == p_n && std::invoke(p_projection, *p_first) == p_value) {
                             *p_result = *p_first;
                             ++p_result;
@@ -1131,12 +1131,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1168,10 +1168,10 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> copy_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1191,9 +1191,9 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> copy_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1223,12 +1223,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1260,11 +1260,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1308,17 +1308,17 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    for (auto n = std::uintmax_t{0}; p_first != p_last && std::invoke(p_predicate2, std::invoke(p_projection, *p_first)); ++p_first) {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate2, std::invoke(p_projection, *p_first)); ++p_first) {
                         if (n == p_n && std::invoke(p_predicate1, std::invoke(p_projection, *p_first))) {
                             *p_result = *p_first;
                             ++p_result;
@@ -1349,12 +1349,12 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1393,12 +1393,12 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1427,11 +1427,11 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1469,16 +1469,16 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    for (auto n = std::uintmax_t{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
                         if (n == p_n) {
                             *p_result = *p_first;
                             ++p_result;
@@ -1503,11 +1503,11 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_first_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1545,17 +1545,17 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    for (auto n = std::uintmax_t{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
                         if (n == p_n && std::invoke(p_projection, *p_first) == p_value) {
                             *p_result = *p_first;
                             ++p_result;
@@ -1589,12 +1589,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_first_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1626,10 +1626,10 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> copy_first_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1650,9 +1650,9 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> copy_first_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1682,12 +1682,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_first_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1719,11 +1719,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_first_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1767,17 +1767,17 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_first_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    for (auto n = std::uintmax_t{0}; p_first != p_last && std::invoke(p_predicate2, std::invoke(p_projection, *p_first)); ++p_first) {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate2, std::invoke(p_projection, *p_first)); ++p_first) {
                         if (n == p_n && std::invoke(p_predicate1, std::invoke(p_projection, *p_first))) {
                             *p_result = *p_first;
                             ++p_result;
@@ -1808,12 +1808,12 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_first_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1852,12 +1852,12 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_first_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1886,11 +1886,11 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_first_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -1928,12 +1928,12 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -1970,11 +1970,11 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_last_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -2012,13 +2012,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -2065,12 +2065,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_last_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -2102,10 +2102,10 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> copy_last_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -2127,9 +2127,9 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> copy_last_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -2159,12 +2159,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_last_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -2196,11 +2196,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_last_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -2244,13 +2244,13 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_last_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -2293,12 +2293,12 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_last_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -2337,12 +2337,12 @@ namespace alg {
                     std::indirectly_copyable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> copy_last_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -2371,11 +2371,11 @@ namespace alg {
                     std::indirectly_copyable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> copy_last_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3394,12 +3394,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3428,11 +3428,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3470,13 +3470,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3515,12 +3515,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3552,10 +3552,10 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> move_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3575,9 +3575,9 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> move_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3607,12 +3607,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3644,11 +3644,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3692,13 +3692,13 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3734,12 +3734,12 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3778,12 +3778,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3812,11 +3812,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3854,12 +3854,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3888,11 +3888,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_first_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -3930,13 +3930,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -3975,12 +3975,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_first_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4012,10 +4012,10 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> move_first_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4036,9 +4036,9 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> move_first_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4068,12 +4068,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_first_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4105,11 +4105,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_first_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4153,13 +4153,13 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_first_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4195,12 +4195,12 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_first_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4239,12 +4239,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_first_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4273,11 +4273,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_first_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4315,12 +4315,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4349,11 +4349,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_last_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4391,13 +4391,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4436,12 +4436,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_last_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4473,10 +4473,10 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> move_last_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4496,9 +4496,9 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> move_last_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4528,12 +4528,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_last_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4565,11 +4565,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_last_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4613,13 +4613,13 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_last_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4655,12 +4655,12 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_last_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -4699,12 +4699,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_last_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -4733,11 +4733,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_last_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -5756,12 +5756,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -5790,11 +5790,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -5832,13 +5832,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -5877,12 +5877,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -5914,10 +5914,10 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> move_if_noexcept_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -5937,9 +5937,9 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> move_if_noexcept_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -5969,12 +5969,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6006,11 +6006,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6054,13 +6054,13 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6096,12 +6096,12 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6140,12 +6140,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6174,11 +6174,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6216,12 +6216,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6250,11 +6250,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6292,13 +6292,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6337,12 +6337,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6374,10 +6374,10 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> move_if_noexcept_first_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6398,9 +6398,9 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> move_if_noexcept_first_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6430,12 +6430,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6467,11 +6467,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6515,13 +6515,13 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6557,12 +6557,12 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6601,12 +6601,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6635,11 +6635,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_first_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6677,12 +6677,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6711,11 +6711,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6753,13 +6753,13 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6798,12 +6798,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6835,10 +6835,10 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n
                 )
                 const
                 -> move_if_noexcept_last_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6858,9 +6858,9 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n
                 )
                 const
                 -> move_if_noexcept_last_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6890,12 +6890,12 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    const tp_value_t&                                  p_value,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -6927,11 +6927,11 @@ namespace alg {
                     >
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    const tp_value_t&    p_value,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    const tp_value_t&                                                       p_value,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -6975,13 +6975,13 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -7017,12 +7017,12 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate1_t      p_predicate1,
-                    tp_predicate2_t      p_predicate2,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate1_t                                                         p_predicate1,
+                    tp_predicate2_t                                                         p_predicate2,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_if_while_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
@@ -7061,12 +7061,12 @@ namespace alg {
                     std::indirectly_movable<tp_input_iterator1_t, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_iterator1_t p_first,
-                    tp_input_iterator2_t p_last,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_iterator1_t                               p_first,
+                    tp_input_iterator2_t                               p_last,
+                    tp_output_iterator_t                               p_result,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_predicate_t                                     p_predicate,
+                    tp_projection_t                                    p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_if_result<tp_input_iterator1_t, tp_output_iterator_t> {
@@ -7095,11 +7095,11 @@ namespace alg {
                     std::indirectly_movable<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t>
                 )
                 auto constexpr operator()(
-                    tp_input_range_t&&   p_range,
-                    tp_output_iterator_t p_result,
-                    const std::uintmax_t p_n,
-                    tp_predicate_t       p_predicate,
-                    tp_projection_t      p_projection = {}
+                    tp_input_range_t&&                                                      p_range,
+                    tp_output_iterator_t                                                    p_result,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range_t>> p_n,
+                    tp_predicate_t                                                          p_predicate,
+                    tp_projection_t                                                         p_projection = {}
                 )
                 const
                 -> move_if_noexcept_last_nth_if_result<std::ranges::iterator_t<tp_input_range_t>, tp_output_iterator_t> {
