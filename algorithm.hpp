@@ -1098,9 +1098,11 @@ namespace alg {
                 const
                 -> copy_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
                     for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
-                        if (n == p_n && std::invoke(p_projection, *p_first) == p_value) {
-                            *p_result = *p_first;
-                            ++p_result;
+                        if (n == p_n) {
+                            if (std::invoke(p_projection, *p_first) == p_value) {
+                                *p_result = *p_first;
+                                ++p_result;
+                            }
                             n = 0;
                         }
                         else ++n;
@@ -1319,9 +1321,11 @@ namespace alg {
                 const
                 -> copy_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
                     for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate2, std::invoke(p_projection, *p_first)); ++p_first) {
-                        if (n == p_n && std::invoke(p_predicate1, std::invoke(p_projection, *p_first))) {
-                            *p_result = *p_first;
-                            ++p_result;
+                        if (n == p_n) {
+                            if (std::invoke(p_predicate1, std::invoke(p_projection, *p_first))) {
+                                *p_result = *p_first;
+                                ++p_result;
+                            }
                             n = 0;
                         }
                         else ++n;
@@ -1556,9 +1560,11 @@ namespace alg {
                 const
                 -> copy_first_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
                     for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate, std::invoke(p_projection, *p_first)); ++p_first) {
-                        if (n == p_n && std::invoke(p_projection, *p_first) == p_value) {
-                            *p_result = *p_first;
-                            ++p_result;
+                        if (n == p_n) {
+                            if (std::invoke(p_projection, *p_first) == p_value) {
+                                *p_result = *p_first;
+                                ++p_result;
+                            }
                             break;
                         }
                         else ++n;
@@ -1778,9 +1784,11 @@ namespace alg {
                 const
                 -> copy_first_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
                     for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first != p_last && std::invoke(p_predicate2, std::invoke(p_projection, *p_first)); ++p_first) {
-                        if (n == p_n && std::invoke(p_predicate1, std::invoke(p_projection, *p_first))) {
-                            *p_result = *p_first;
-                            ++p_result;
+                        if (n == p_n) {
+                            if (std::invoke(p_predicate1, std::invoke(p_projection, *p_first))) {
+                                *p_result = *p_first;
+                                ++p_result;
+                            }
                             break;
                         }
                         else ++n;
