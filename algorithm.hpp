@@ -73,19 +73,19 @@ namespace alg {
             };
             auto constexpr get_iterator_base_if_value_type_is_noexcept = get_iterator_base_if_value_type_is_noexcept_fn{};
 
-            struct write_and_increment_iterator_t {
+            struct write_and_increment_iterator_fn {
                 template <typename tp_input_iterator_t, typename tp_output_iterator_t>
                 requires (
                     std::input_iterator<std::remove_cvref_t<tp_input_iterator_t>> &&
                     std::output_iterator<std::remove_cvref_t<tp_output_iterator_t>, std::iter_reference_t<tp_input_iterator_t>>
                 )
-                auto operator()(tp_output_iterator_t&& p_out, tp_input_iterator_t&& p_in) const -> write_and_increment_iterator_t {
+                auto operator()(tp_output_iterator_t&& p_out, tp_input_iterator_t&& p_in) const -> write_and_increment_iterator_fn {
                     *p_out = *p_in;
                     ++p_out;
                     return *this;
                 }
             };
-            auto constexpr write_and_increment_iterator = detail::write_and_increment_iterator_t{};
+            auto constexpr write_and_increment_iterator = detail::write_and_increment_iterator_fn{};
         }
         
         template <typename tp_in_iterator_t, typename tp_out_iterator_t>
