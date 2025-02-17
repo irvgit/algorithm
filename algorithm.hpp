@@ -699,7 +699,7 @@ namespace alg {
                             std::move(p_predicate),
                             std::move(p_projection)
                         );
-                        return copy_last_while_result{std::move(l_in.base()), std::move(l_out)};
+                        return copy_last_while_result{std::ranges::next(l_in.base()), std::move(l_out)};
                     }
                     else {
                         static_assert(false, "TODO: need to implement forward iterator's branch, but should implement find_while variants first");
@@ -876,7 +876,7 @@ namespace alg {
                             std::move(p_predicate2),
                             std::move(p_projection)
                         );
-                        return copy_last_if_while_result{std::move(l_in.base()), std::move(l_out)};
+                        return copy_last_if_while_result{std::ranges::next(l_in.base()), std::move(l_out)};
                     }
                     else {
                         static_assert(false, "TODO: need to implement forward iterator's branch, but should implement find_while variants first");
