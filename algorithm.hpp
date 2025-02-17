@@ -7286,7 +7286,13 @@ namespace alg {
                             tp_input_iterator3_t,
                             tp_projection2_t
                         >
-                    >                                       tp_predicate_t = std::ranges::equal_to
+                    >                                       tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >
+                    >                                       tp_predicate2_t
                 >
                 requires (
                     std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
@@ -7297,24 +7303,26 @@ namespace alg {
                     tp_input_iterator3_t p_first2,
                     tp_input_iterator4_t p_last2,
                     const tp_value_t&    p_new_value,
-                    tp_predicate_t       p_predicate   = {},
+                    tp_predicate1_t      p_predicate1  = {},
+                    tp_predicate2_t      p_predicate2  = {},
                     tp_projection1_t     p_projection1 = {},
                     tp_projection2_t     p_projection2 = {}
                 )
                 const
                 -> tp_input_iterator1_t {
-                    auto l_it = std::ranges::find_first_of(
-                        std::move(p_first1),
-                        std::move(p_last1),
-                        std::move(p_first2),
-                        std::move(p_last2),
-                        std::move(p_predicate),
-                        std::move(p_projection1),
-                        std::move(p_projection2)
-                    );
-                    if (l_it != p_last1)
-                        *l_it = p_new_value;
-                    return l_it;
+                    static_assert(false, "TODO: need to implement find_first_of_while");
+                    //auto l_it = std::ranges::find_first_of(
+                    //    std::move(p_first1),
+                    //    std::move(p_last1),
+                    //    std::move(p_first2),
+                    //    std::move(p_last2),
+                    //    std::move(p_predicate1),
+                    //    std::move(p_projection1),
+                    //    std::move(p_projection2)
+                    //);
+                    //if (l_it != p_last1)
+                    //    *l_it = p_new_value;
+                    //return l_it;
                 }
                 template <
                     std::ranges::input_range                            tp_input_range1_t,
@@ -7331,7 +7339,13 @@ namespace alg {
                             std::ranges::iterator_t<tp_input_range2_t>,
                             tp_projection2_t
                         >
-                    >                                                   tp_predicate_t = std::ranges::equal_to
+                    >                                                   tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >
+                    >                                                   tp_predicate2_t
                 >
                 requires (
                     std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
@@ -7340,7 +7354,8 @@ namespace alg {
                     tp_input_range1_t&& p_range,
                     tp_input_range2_t&& p_old_values,
                     const tp_value_t&   p_new_value,
-                    tp_predicate_t      p_predicate   = {},
+                    tp_predicate1_t     p_predicate1,
+                    tp_predicate2_t     p_predicate2,
                     tp_projection1_t    p_projection1 = {},
                     tp_projection2_t    p_projection2 = {}
                 )
@@ -7352,7 +7367,8 @@ namespace alg {
                         std::ranges::begin(p_old_values),
                         std::ranges::end(p_old_values),
                         p_new_value,
-                        std::move(p_predicate),
+                        std::move(p_predicate1),
+                        std::move(p_predicate2),
                         std::move(p_projection1),
                         std::move(p_projection2)
                     );
@@ -7473,7 +7489,13 @@ namespace alg {
                             tp_input_iterator3_t,
                             tp_projection2_t
                         >
-                    >                                       tp_predicate_t = std::ranges::equal_to
+                    >                                       tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >
+                    >                                       tp_predicate2_t
                 >
                 requires (
                     std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
@@ -7484,7 +7506,8 @@ namespace alg {
                     tp_input_iterator3_t p_first2,
                     tp_input_iterator4_t p_last2,
                     const tp_value_t&    p_new_value,
-                    tp_predicate_t       p_predicate   = {},
+                    tp_predicate1_t      p_predicate1,
+                    tp_predicate2_t      p_predicate2,
                     tp_projection1_t     p_projection1 = {},
                     tp_projection2_t     p_projection2 = {}
                 )
@@ -7507,7 +7530,13 @@ namespace alg {
                             std::ranges::iterator_t<tp_input_range2_t>,
                             tp_projection2_t
                         >
-                    >                                                   tp_predicate_t = std::ranges::equal_to
+                    >                                                   tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >
+                    >                                                   tp_predicate2_t
                 >
                 requires (
                     std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
@@ -7516,7 +7545,8 @@ namespace alg {
                     tp_input_range1_t&& p_range,
                     tp_input_range2_t&& p_old_values,
                     const tp_value_t&   p_new_value,
-                    tp_predicate_t      p_predicate   = {},
+                    tp_predicate1_t     p_predicate1,
+                    tp_predicate2_t     p_predicate2,
                     tp_projection1_t    p_projection1 = {},
                     tp_projection2_t    p_projection2 = {}
                 )
@@ -7528,7 +7558,8 @@ namespace alg {
                         std::ranges::begin(p_old_values),
                         std::ranges::end(p_old_values),
                         p_new_value,
-                        std::move(p_predicate),
+                        std::move(p_predicate1),
+                        std::move(p_predicate2),
                         std::move(p_projection1),
                         std::move(p_projection2)
                     );
