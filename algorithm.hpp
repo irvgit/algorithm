@@ -1941,23 +1941,7 @@ namespace alg {
                 )
                 const
                 -> copy_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    if constexpr (
-                        std::same_as<tp_input_iterator1_t, tp_input_iterator2_t> &&
-                        std::bidirectional_iterator<tp_input_iterator1_t>
-                    ) {
-                        auto [l_in, l_out] = copy_first_nth_while(
-                            std::reverse_iterator{std::move(p_last)},
-                            std::reverse_iterator{std::move(p_first)},
-                            std::move(p_result),
-                            p_n,
-                            std::move(p_predicate),
-                            std::move(p_projection)
-                        );
-                        return copy_last_nth_while_result{std::move(l_in.base()), std::move(l_out)};
-                    }
-                    else {
-                        static_assert(false, "TODO: need to implement forward iterator's branch, but should implement find_while variants first");
-                    } 
+                    static_assert(false, "TODO: can't use reverse iterator approach for x_last_nth, as otherwise it's nth from the back, should implement find_last_nth");
                 }
                 template <
                     std::ranges::input_range                           tp_input_range_t,
@@ -2026,24 +2010,7 @@ namespace alg {
                 )
                 const
                 -> copy_last_nth_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    if constexpr (
-                        std::same_as<tp_input_iterator1_t, tp_input_iterator2_t> &&
-                        std::bidirectional_iterator<tp_input_iterator1_t>
-                    ) {
-                        auto [l_in, l_out] = copy_first_nth_while(
-                            std::reverse_iterator{std::move(p_last)},
-                            std::reverse_iterator{std::move(p_first)},
-                            std::move(p_result),
-                            p_n,
-                            p_value,
-                            std::move(p_predicate),
-                            std::move(p_projection)
-                        );
-                        return copy_last_nth_while_result{std::move(l_in.base()), std::move(l_out)};
-                    }
-                    else {
-                        static_assert(false, "TODO: need to implement forward iterator's branch, but should implement find_while variants first");
-                    } 
+                    static_assert(false, "TODO: can't use reverse iterator approach for x_last_nth, as otherwise it's nth from the back, should implement find_last_nth");
                 }
                 template <
                     std::ranges::input_range                           tp_input_range_t,
@@ -2258,24 +2225,8 @@ namespace alg {
                 )
                 const
                 -> copy_last_nth_if_while_result<tp_input_iterator1_t, tp_output_iterator_t> {
-                    if constexpr (
-                        std::same_as<tp_input_iterator1_t, tp_input_iterator2_t> &&
-                        std::bidirectional_iterator<tp_input_iterator1_t>
-                    ) {
-                        auto [l_in, l_out] = copy_first_nth_if_while(
-                            std::reverse_iterator{std::move(p_last)},
-                            std::reverse_iterator{std::move(p_first)},
-                            std::move(p_result),
-                            p_n,
-                            std::move(p_predicate1),
-                            std::move(p_predicate2),
-                            std::move(p_projection)
-                        );
-                        return copy_last_nth_if_while_result{std::move(l_in.base()), std::move(l_out)};
-                    }
-                    else {
-                        static_assert(false, "TODO: need to implement forward iterator's branch, but should implement find_while variants first");
-                    }                 }
+                    static_assert(false, "TODO: can't use reverse iterator approach for x_last_nth, as otherwise it's nth from the back, should implement find_last_nth");
+                }
                 template <
                     std::ranges::input_range                           tp_input_range_t,
                     std::weakly_incrementable                          tp_output_iterator_t,
