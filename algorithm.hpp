@@ -7070,5 +7070,1174 @@ namespace alg {
             };
         }
         auto constexpr move_if_noexcept_last_nth_if = detail::move_if_noexcept_last_nth_if_fn{};
+
+//replace suit should go here before replace_x_of_suite
+
+        namespace detail {
+            struct replace_any_of_while_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >
+                    >                                       tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t p_first1,
+                    tp_input_iterator2_t p_last1,
+                    tp_input_iterator3_t p_first2,
+                    tp_input_iterator4_t p_last2,
+                    const tp_value_t&    p_new_value,
+                    tp_predicate1_t      p_predicate1,
+                    tp_predicate2_t      p_predicate2,
+                    tp_projection1_t     p_projection1 = {},
+                    tp_projection2_t     p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    for (; p_first1 != p_last1 && std::invoke(p_predicate2, std::invoke(p_projection1, *p_first1)); ++p_first1)
+                        if (std::ranges::contains(p_first2, p_last2, std::invoke(p_projection1, *p_first1), p_projection2))
+                            *p_first1 = p_new_value;
+                    return p_first1;
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >
+                    >                                                   tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&& p_range,
+                    tp_input_range2_t&& p_old_values,
+                    const tp_value_t&   p_new_value,
+                    tp_predicate1_t     p_predicate1,
+                    tp_predicate2_t     p_predicate2,
+                    tp_projection1_t    p_projection1 = {},
+                    tp_projection2_t    p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate1),
+                        std::move(p_predicate2),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_any_of_while = detail::replace_any_of_while_fn{};
+
+        namespace detail {
+            struct replace_any_of_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t p_first1,
+                    tp_input_iterator2_t p_last1,
+                    tp_input_iterator3_t p_first2,
+                    tp_input_iterator4_t p_last2,
+                    const tp_value_t&    p_new_value,
+                    tp_predicate_t       p_predicate   = {},
+                    tp_projection1_t     p_projection1 = {},
+                    tp_projection2_t     p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    return replace_any_of_while(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        p_new_value,
+                        std::move(p_predicate),
+                        detail::predicate_always_returning_true,
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&& p_range,
+                    tp_input_range2_t&& p_old_values,
+                    const tp_value_t&   p_new_value,
+                    tp_predicate_t      p_predicate   = {},
+                    tp_projection1_t    p_projection1 = {},
+                    tp_projection2_t    p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_any_of = detail::replace_any_of_fn{};
+
+        namespace detail {
+            struct replace_first_of_while_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t p_first1,
+                    tp_input_iterator2_t p_last1,
+                    tp_input_iterator3_t p_first2,
+                    tp_input_iterator4_t p_last2,
+                    const tp_value_t&    p_new_value,
+                    tp_predicate_t       p_predicate   = {},
+                    tp_projection1_t     p_projection1 = {},
+                    tp_projection2_t     p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    auto l_it = std::ranges::find_first_of(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                    if (l_it != p_last1)
+                        *l_it = p_new_value;
+                    return l_it;
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&& p_range,
+                    tp_input_range2_t&& p_old_values,
+                    const tp_value_t&   p_new_value,
+                    tp_predicate_t      p_predicate   = {},
+                    tp_projection1_t    p_projection1 = {},
+                    tp_projection2_t    p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_first_of_while = detail::replace_first_of_while_fn{};
+
+        namespace detail {
+            struct replace_first_of_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t p_first1,
+                    tp_input_iterator2_t p_last1,
+                    tp_input_iterator3_t p_first2,
+                    tp_input_iterator4_t p_last2,
+                    const tp_value_t&    p_new_value,
+                    tp_predicate_t       p_predicate   = {},
+                    tp_projection1_t     p_projection1 = {},
+                    tp_projection2_t     p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    return replace_first_of_while(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        p_new_value,
+                        std::move(p_predicate),
+                        detail::predicate_always_returning_true,
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&& p_range,
+                    tp_input_range2_t&& p_old_values,
+                    const tp_value_t&   p_new_value,
+                    tp_predicate_t      p_predicate   = {},
+                    tp_projection1_t    p_projection1 = {},
+                    tp_projection2_t    p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_first_of = detail::replace_first_of_fn{};
+
+        namespace detail {
+            struct replace_last_of_while_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t p_first1,
+                    tp_input_iterator2_t p_last1,
+                    tp_input_iterator3_t p_first2,
+                    tp_input_iterator4_t p_last2,
+                    const tp_value_t&    p_new_value,
+                    tp_predicate_t       p_predicate   = {},
+                    tp_projection1_t     p_projection1 = {},
+                    tp_projection2_t     p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    static_assert(false, "TODO: need to implement find_last_of");
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&& p_range,
+                    tp_input_range2_t&& p_old_values,
+                    const tp_value_t&   p_new_value,
+                    tp_predicate_t      p_predicate   = {},
+                    tp_projection1_t    p_projection1 = {},
+                    tp_projection2_t    p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_last_of_while = detail::replace_last_of_while_fn{};
+
+        namespace detail {
+            struct replace_last_of_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t p_first1,
+                    tp_input_iterator2_t p_last1,
+                    tp_input_iterator3_t p_first2,
+                    tp_input_iterator4_t p_last2,
+                    const tp_value_t&    p_new_value,
+                    tp_predicate_t       p_predicate   = {},
+                    tp_projection1_t     p_projection1 = {},
+                    tp_projection2_t     p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    return replace_last_of_while(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        p_new_value,
+                        std::move(p_predicate),
+                        detail::predicate_always_returning_true,
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&& p_range,
+                    tp_input_range2_t&& p_old_values,
+                    const tp_value_t&   p_new_value,
+                    tp_predicate_t      p_predicate   = {},
+                    tp_projection1_t    p_projection1 = {},
+                    tp_projection2_t    p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_last_of = detail::replace_last_of_fn{};
+
+        namespace detail {
+            struct replace_nth_of_while_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >
+                    >                                       tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t                               p_first1,
+                    tp_input_iterator2_t                               p_last1,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_input_iterator3_t                               p_first2,
+                    tp_input_iterator4_t                               p_last2,
+                    const tp_value_t&                                  p_new_value,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection1_t                                   p_projection1 = {},
+                    tp_projection2_t                                   p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first1 != p_last1 && std::invoke(p_predicate2, std::invoke(p_projection1, *p_first1)); ++p_first1)
+                        if (n == p_n) {
+                            if (std::ranges::contains(p_first2, p_last2, std::invoke(p_projection1, *p_first1), p_projection2))
+                                *p_first1 = p_new_value;
+                            n = 0;
+                        }
+                        else ++n;
+                    return p_first1;
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >
+                    >                                                   tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&&                                                      p_range,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range1_t>> p_n,
+                    tp_input_range2_t&&                                                      p_old_values,
+                    const tp_value_t&                                                        p_new_value,
+                    tp_predicate1_t                                                          p_predicate1,
+                    tp_predicate2_t                                                          p_predicate2,
+                    tp_projection1_t                                                         p_projection1 = {},
+                    tp_projection2_t                                                         p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        p_n,
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate1),
+                        std::move(p_predicate2),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_nth_of_while = detail::replace_nth_of_while_fn{};
+
+        namespace detail {
+            struct replace_nth_of_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t                               p_first1,
+                    tp_input_iterator2_t                               p_last1,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_input_iterator3_t                               p_first2,
+                    tp_input_iterator4_t                               p_last2,
+                    const tp_value_t&                                  p_new_value,
+                    tp_predicate_t                                     p_predicate   = {},
+                    tp_projection1_t                                   p_projection1 = {},
+                    tp_projection2_t                                   p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    return replace_nth_of_while(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        p_n,
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        p_new_value,
+                        std::move(p_predicate),
+                        detail::predicate_always_returning_true,
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&&                                                      p_range,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range1_t>> p_n,
+                    tp_input_range2_t&&                                                      p_old_values,
+                    const tp_value_t&                                                        p_new_value,
+                    tp_predicate_t                                                           p_predicate   = {},
+                    tp_projection1_t                                                         p_projection1 = {},
+                    tp_projection2_t                                                         p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        p_n,
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_nth_of = detail::replace_nth_of_fn{};
+
+        namespace detail {
+            struct replace_first_nth_of_while_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >
+                    >                                       tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t                               p_first1,
+                    tp_input_iterator2_t                               p_last1,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_input_iterator3_t                               p_first2,
+                    tp_input_iterator4_t                               p_last2,
+                    const tp_value_t&                                  p_new_value,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection1_t                                   p_projection1 = {},
+                    tp_projection2_t                                   p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    for (auto n = std::iter_difference_t<tp_input_iterator1_t>{0}; p_first1 != p_last1 && std::invoke(p_predicate2, std::invoke(p_projection1, *p_first1)); ++p_first1)
+                        if (n == p_n) {
+                            if (std::ranges::contains(p_first2, p_last2, std::invoke(p_projection1, *p_first1), p_projection2)) {
+                                *p_first1 = p_new_value;
+                                break;
+                            }
+                            n = 0;
+                        }
+                        else ++n;
+                    return p_first1;
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >
+                    >                                                   tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&&                                                      p_range,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range1_t>> p_n,
+                    tp_input_range2_t&&                                                      p_old_values,
+                    const tp_value_t&                                                        p_new_value,
+                    tp_predicate1_t                                                          p_predicate1,
+                    tp_predicate2_t                                                          p_predicate2,
+                    tp_projection1_t                                                         p_projection1 = {},
+                    tp_projection2_t                                                         p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        p_n,
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate1),
+                        std::move(p_predicate2),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_first_nth_of_while = detail::replace_first_nth_of_while_fn{};
+
+        namespace detail {
+            struct replace_first_nth_of_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t                               p_first1,
+                    tp_input_iterator2_t                               p_last1,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_input_iterator3_t                               p_first2,
+                    tp_input_iterator4_t                               p_last2,
+                    const tp_value_t&                                  p_new_value,
+                    tp_predicate_t                                     p_predicate   = {},
+                    tp_projection1_t                                   p_projection1 = {},
+                    tp_projection2_t                                   p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    return replace_first_nth_of_while(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        p_n,
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        p_new_value,
+                        std::move(p_predicate),
+                        detail::predicate_always_returning_true,
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&&                                                      p_range,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range1_t>> p_n,
+                    tp_input_range2_t&&                                                      p_old_values,
+                    const tp_value_t&                                                        p_new_value,
+                    tp_predicate_t                                                           p_predicate   = {},
+                    tp_projection1_t                                                         p_projection1 = {},
+                    tp_projection2_t                                                         p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        p_n,
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_first_nth_of = detail::replace_first_nth_of_fn{};
+
+        namespace detail {
+            struct replace_last_nth_of_while_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >
+                    >                                       tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t                               p_first1,
+                    tp_input_iterator2_t                               p_last1,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_input_iterator3_t                               p_first2,
+                    tp_input_iterator4_t                               p_last2,
+                    const tp_value_t&                                  p_new_value,
+                    tp_predicate1_t                                    p_predicate1,
+                    tp_predicate2_t                                    p_predicate2,
+                    tp_projection1_t                                   p_projection1 = {},
+                    tp_projection2_t                                   p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    static_assert(false, "TODO: can't use reverse iterator approach for x_last_nth, as otherwise it's nth from the back, should implement find_last_nth_of");
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate1_t,
+                    std::indirect_unary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >
+                    >                                                   tp_predicate2_t
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&&                                                      p_range,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range1_t>> p_n,
+                    tp_input_range2_t&&                                                      p_old_values,
+                    const tp_value_t&                                                        p_new_value,
+                    tp_predicate1_t                                                          p_predicate1,
+                    tp_predicate2_t                                                          p_predicate2,
+                    tp_projection1_t                                                         p_projection1 = {},
+                    tp_projection2_t                                                         p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        p_n,
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate1),
+                        std::move(p_predicate2),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_last_nth_of_while = detail::replace_last_nth_of_while_fn{};
+
+        namespace detail {
+            struct replace_last_nth_of_fn {
+                template <
+                    std::input_iterator                     tp_input_iterator1_t,
+                    std::sentinel_for<tp_input_iterator1_t> tp_input_iterator2_t,
+                    std::input_iterator                     tp_input_iterator3_t,
+                    std::sentinel_for<tp_input_iterator3_t> tp_input_iterator4_t,
+                    typename                                tp_value_t,
+                    typename                                tp_projection1_t  = std::identity,
+                    typename                                tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            tp_input_iterator1_t,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            tp_input_iterator3_t,
+                            tp_projection2_t
+                        >
+                    >                                       tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<tp_input_iterator1_t, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_iterator1_t                               p_first1,
+                    tp_input_iterator2_t                               p_last1,
+                    const std::iter_difference_t<tp_input_iterator1_t> p_n,
+                    tp_input_iterator3_t                               p_first2,
+                    tp_input_iterator4_t                               p_last2,
+                    const tp_value_t&                                  p_new_value,
+                    tp_predicate_t                                     p_predicate   = {},
+                    tp_projection1_t                                   p_projection1 = {},
+                    tp_projection2_t                                   p_projection2 = {}
+                )
+                const
+                -> tp_input_iterator1_t {
+                    return replace_last_nth_of_while(
+                        std::move(p_first1),
+                        std::move(p_last1),
+                        p_n,
+                        std::move(p_first2),
+                        std::move(p_last2),
+                        p_new_value,
+                        std::move(p_predicate),
+                        detail::predicate_always_returning_true,
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+                template <
+                    std::ranges::input_range                            tp_input_range1_t,
+                    std::ranges::input_range                            tp_input_range2_t,
+                    typename                                            tp_value_t,
+                    typename                                            tp_projection1_t  = std::identity,
+                    typename                                            tp_projection2_t  = std::identity,
+                    std::indirect_binary_predicate<
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range1_t>,
+                            tp_projection1_t
+                        >,
+                        std::projected<
+                            std::ranges::iterator_t<tp_input_range2_t>,
+                            tp_projection2_t
+                        >
+                    >                                                   tp_predicate_t = std::ranges::equal_to
+                >
+                requires (
+                    std::indirectly_writable<std::ranges::iterator_t<tp_input_range1_t>, const tp_value_t&>
+                )
+                auto constexpr operator()(
+                    tp_input_range1_t&&                                                      p_range,
+                    const std::iter_difference_t<std::ranges::iterator_t<tp_input_range1_t>> p_n,
+                    tp_input_range2_t&&                                                      p_old_values,
+                    const tp_value_t&                                                        p_new_value,
+                    tp_predicate_t                                                           p_predicate   = {},
+                    tp_projection1_t                                                         p_projection1 = {},
+                    tp_projection2_t                                                         p_projection2 = {}
+                )
+                const
+                -> std::ranges::iterator_t<tp_input_range1_t> {
+                    return (*this)(
+                        std::ranges::begin(p_range),
+                        std::ranges::end(p_range),
+                        p_n,
+                        std::ranges::begin(p_old_values),
+                        std::ranges::end(p_old_values),
+                        p_new_value,
+                        std::move(p_predicate),
+                        std::move(p_projection1),
+                        std::move(p_projection2)
+                    );
+                }
+            };
+        }
+        auto constexpr replace_last_nth_of = detail::replace_last_nth_of_fn{};
     }
 }
